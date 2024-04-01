@@ -1,0 +1,25 @@
+# Main make.code.defn file for thorn BaikalVacuum
+
+# Source files in this directory that need compiled:
+SRCS = \
+       enforce_detgammahat_constraint_BaikalVacuum.c \
+       rhs_eval_BaikalVacuum_order_4.c \
+       Ricci_eval_BaikalVacuum_order_4.c \
+       BSSN_constraints_BaikalVacuum_order_4.c \
+       rhs_eval_BaikalVacuum_order_6.c \
+       Ricci_eval_BaikalVacuum_order_6.c \
+       BSSN_constraints_BaikalVacuum_order_6.c \
+       rhs_eval_BaikalVacuum_order_8.c \
+       Ricci_eval_BaikalVacuum_order_8.c \
+       BSSN_constraints_BaikalVacuum_order_8.c \
+       ADM_to_BSSN_BaikalVacuum.c \
+       Banner_BaikalVacuum.c \
+       BSSN_to_ADM_BaikalVacuum.c \
+       floor_the_lapse_BaikalVacuum.c \
+       MoL_registration_BaikalVacuum.c \
+       RegisterSlicing_BaikalVacuum.c \
+       specify_BoundaryConditions_aux_gfs_BaikalVacuum.c \
+       specify_BoundaryConditions_evolved_gfs_BaikalVacuum.c \
+       specify_NewRad_BoundaryConditions_parameters_BaikalVacuum.c \
+       Symmetry_registration_oldCartGrid3D_BaikalVacuum.c \
+       zero_rhss_BaikalVacuum.c 
