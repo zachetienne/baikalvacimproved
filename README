@@ -2,6 +2,7 @@ This repository contains a version of the BaikalVacuum thorn, which implements
 the improvements described in
 
 Improved Moving-Puncture Techniques for Compact Binary Simulations
+https://arxiv.org/abs/2404.01137
 by Z. Etienne
 
 All parameter files used in All3 simulations in the paper are included in the parfiles/ directory.
