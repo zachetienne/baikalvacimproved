@@ -1,0 +1,52 @@
+# Schedule definitions for thorn TwoPunctures
+
+if (CCTK_Equals(initial_data, "twopunctures"))
+{
+  STORAGE: energy, angular_momentum, puncture_adm_mass, bare_mass
+
+  if (keep_u_around) {
+    STORAGE: puncture_u
+  }
+
+  SCHEDULE TwoPunctures_ParamCheck AT PARAMCHECK
+  {
+    LANG: C
+  } "Check parameters and thorn needs"
+
+  if (schedule_in_ADMBase_InitialData)
+  {
+      SCHEDULE GROUP TwoPunctures_Group IN ADMBase_InitialData
+      {
+      } "TwoPunctures initial data group"
+  }
+  else
+  {
+      SCHEDULE GROUP TwoPunctures_Group AT Initial AFTER ADMBase_InitialData BEFORE ADMBase_PostInitial AFTER HydroBase_Initial before SetTmunu before HydroBase_Prim2ConInitial
+      {
+      } "TwoPunctures initial data group"
+  }
+
+  SCHEDULE TwoPunctures IN TwoPunctures_Group
+  {
+    LANG: C
+    STORAGE: puncture_u
+    READS: Grid::coordinates(Everywhere)
+    WRITES: Twopunctures::mp(Everywhere), Twopunctures::mm(Everywhere),
+            Twopunctures::mp_adm(Everywhere), Twopunctures::mm_adm(Everywhere),
+            Twopunctures::E(Everywhere), Twopunctures::J1(Everywhere),
+            Twopunctures::J2(Everywhere), Twopunctures::J3(Everywhere),
+            Twopunctures::puncture_u(Everywhere)
+    WRITES: StaticConformal::conformal_state(Everywhere),
+            StaticConformal::confac_2derivs(Everywhere),
+            StaticConformal::confac_1derivs(Everywhere),
+            StaticConformal::confac(Everywhere)
+    WRITES: AdmBase::alp(Everywhere), AdmBase::metric(Everywhere), AdmBase::curv(Everywhere)
+    # SYNC: ADMBase::metric ADMBase::curv ADMBase::lapse
+  } "Create puncture black hole initial data"
+
+  SCHEDULE TwoPunctures_Metadata IN TwoPunctures_Group after TwoPunctures
+  {
+    LANG: C
+    OPTIONS: global
+  } "Output TwoPunctures metadata"
+}
